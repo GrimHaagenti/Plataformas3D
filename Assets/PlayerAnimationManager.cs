@@ -16,6 +16,8 @@ public class PlayerAnimationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     animator.SetFloat("Velocity", player.GetCurrentSpeed());   
+        animator.SetFloat("Velocity", player.GetCurrentVelocity());
+        animator.SetFloat("X_Velocity", player.GetCurrentSpeedX());   
+     animator.SetFloat("Z_Velocity", player.GetCurrentSpeedY());   
     }
 }

@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     //MOVE
     private Vector3 finalVelocity = Vector3.zero; 
-    private float velocityXZ = 10f;
+    private float velocityXZ = 2f;
     //JUMP
     private float gravity = 20f; 
 
@@ -20,7 +20,8 @@ public class Player : MonoBehaviour
 
     private float max_fallSpeed = 10.0f;
 
-    float currentSpeed = 0f;
+    private float velocity = 0;
+    Vector3 currentSpeed = Vector3.zero;
 
     void Start()
     {
@@ -42,7 +43,7 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, camera.transform.eulerAngles.y, 0f);
         finalVelocity.x = direction.x * velocityXZ;
         finalVelocity.z = direction.z * velocityXZ;
-
+        velocity = new Vector3(finalVelocity.x, 0 , finalVelocity.z).magnitude;
 
         direction.y = -1f;
 
@@ -69,8 +70,8 @@ public class Player : MonoBehaviour
 
             if (finalVelocity.y >= max_fallSpeed) { finalVelocity.y = max_fallSpeed; } 
         }
-        currentSpeed = new Vector3(finalVelocity.x, 0.0f, finalVelocity.z).magnitude;
-
+       currentSpeed = finalVelocity;
+        
         
         controller.Move(finalVelocity * Time.deltaTime);
 
@@ -78,9 +79,17 @@ public class Player : MonoBehaviour
     }
 
 
-    public  float GetCurrentSpeed()
+    public  float GetCurrentSpeedX()
     {
-        return currentSpeed;
+        return currentSpeed.x;
+    }
+    public  float GetCurrentSpeedY()
+    {
+        return currentSpeed.z;
+    }
+    public  float GetCurrentVelocity()
+    {
+        return velocity;
     }
 
 }
