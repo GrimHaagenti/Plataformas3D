@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: e4acdfad5c89d8c46950ca2093b05b6e
+guid: b81636615fade284e995016730320df5
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Standing To Crouched
+    second: LongJump
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Standing To Crouched
+      name: LongJump
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
-      lastFrame: 21
+      firstFrame: 9
+      lastFrame: 26
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -49,7 +49,7 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0

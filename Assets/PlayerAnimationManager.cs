@@ -18,6 +18,10 @@ public class PlayerAnimationManager : MonoBehaviour
     {
         animator.SetFloat("Velocity", player.GetCurrentVelocity());
         animator.SetFloat("X_Velocity", player.GetCurrentSpeedX());   
-     animator.SetFloat("Z_Velocity", player.GetCurrentSpeedY());   
+        animator.SetFloat("Z_Velocity", player.GetCurrentSpeedY());   
+        animator.SetBool("Crouching", player.isCrouching);   
+        animator.SetBool("Grounded", player.Grounded);   
+        animator.SetBool("Jumping", player.Jumping);   
+
     }
 }

@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: e4acdfad5c89d8c46950ca2093b05b6e
+guid: f5f45f0bfcbad0240b656d23d3dac75d
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Standing To Crouched
+    second: CrouchRight
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,20 +36,20 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Standing To Crouched
+      name: CrouchRight
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 21
+      lastFrame: 38
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0

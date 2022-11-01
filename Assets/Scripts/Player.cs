@@ -4,81 +4,90 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] Camera camera;
-    private CharacterController controller;
+    [SerializeField] public Camera camera;
+    public CharacterController Controller { get; private set; }
 
+    InputManager inputManager;
+    #region STATE MACHINE
+    public PlayerStateMachine StateMachine { get; private set; }
+    public Animator Anim { get; private set; }
+
+    [SerializeField]
+    private PlayerData playerData;
+
+    public PlayerIdleState IdleState { get; private set; }
+    public PlayerMoveState MoveState { get; private set; }
+
+    #endregion
 
     //MOVE
-    private Vector3 finalVelocity = Vector3.zero; 
+    private Vector3 playerVelocity = Vector3.zero; 
     private float velocityXZ = 2f;
+    private Vector2 inputAxis;
+
+    private float timeToMaxSpeed = 1f;
+    private float MaxSpeed = 2f;
     //JUMP
-    private float gravity = 20f; 
 
-    private float jumpForce = 10f;
 
-    private float coyoteTime = 1f;
 
-    private float max_fallSpeed = 10.0f;
 
-    private float velocity = 0;
+    public float velocity = 0;
     Vector3 currentSpeed = Vector3.zero;
 
+
+    //CROUCH
+    public bool isCrouching { get; private set; }
+    public bool Grounded { get; private set; }
+    public bool Jumping { get; private set; }
+
+    private void Awake()
+    {
+        StateMachine = new PlayerStateMachine();
+        
+
+        IdleState = new PlayerIdleState(this, StateMachine, playerData, "idle");
+        MoveState = new PlayerMoveState(this, StateMachine, playerData, "move");
+
+    }
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        Controller = GetComponent<CharacterController>();
+        Anim = GetComponent<Animator>();
+        StateMachine.Initialize(IdleState);
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        StateMachine.CurrentState.LogicUpdate();
 
 
-        Vector3 direction = Quaternion.Euler(0f, camera.transform.eulerAngles.y, 0f) * new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-       
-
-        direction.Normalize();
-
-
-        transform.rotation = Quaternion.Euler(0f, camera.transform.eulerAngles.y, 0f);
-        finalVelocity.x = direction.x * velocityXZ;
-        finalVelocity.z = direction.z * velocityXZ;
-        velocity = new Vector3(finalVelocity.x, 0 , finalVelocity.z).magnitude;
-
-        direction.y = -1f;
-
-       if (controller.isGrounded)
+        if (InputManager._INPUT_MANAGER.GetCrouchButtonIsPressed())
         {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                finalVelocity.y = jumpForce;
-            }
-            else
-            {
-                finalVelocity.y = direction.y * gravity * Time.deltaTime;
-                coyoteTime = 1f;
-            }
+            isCrouching = true;
         }
         else
         {
-            finalVelocity.y += direction.y * gravity * Time.deltaTime;
-            coyoteTime -= Time.deltaTime;
-            if (Input.GetKey(KeyCode.Space) && coyoteTime >= 0f)
-            {
-                finalVelocity.y = jumpForce; coyoteTime = 0f;
-            }
-
-            if (finalVelocity.y >= max_fallSpeed) { finalVelocity.y = max_fallSpeed; } 
+            isCrouching = false;
         }
-       currentSpeed = finalVelocity;
+
+
         
-        
-        controller.Move(finalVelocity * Time.deltaTime);
+
+
+        Controller.Move(playerData.finalVelocity * Time.deltaTime);
+        currentSpeed = playerVelocity;
 
 
     }
 
-
+    public void SetVelocity() 
+    {
+        playerVelocity =playerData.finalVelocity;
+    }
     public  float GetCurrentSpeedX()
     {
         return currentSpeed.x;
