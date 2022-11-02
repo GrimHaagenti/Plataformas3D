@@ -30,6 +30,10 @@ public class PlayerIdleState : PlayerGroundedState
         {
             stateMachine.ChangeState(player.MoveState);
         }
+        if (crouching)
+        {
+            stateMachine.ChangeState(player.CrouchIdleState);
+        }
 
         playerData.finalVelocity.x = 0f;
         playerData.finalVelocity.z = 0f;

@@ -15,14 +15,28 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayerData playerData;
 
+    #region PlayerStates
+    
+    //GROUNDED
     public PlayerIdleState IdleState { get; private set; }
     public PlayerMoveState MoveState { get; private set; }
+    public PlayerCrouchMoveState CrouchMoveState { get; private set; }
+    public PlayerCrouchIdleState CrouchIdleState { get; private set; }
+    public PlayerLandState LandState { get; private set; }
+
+    //ON AIR
+    public PlayerOnAirState onAirState { get; private set; }
+
+    //JUMPING
+    public PlayerJumpState jumpState { get; private set; }
+    
+
+    #endregion
 
     #endregion
 
     //MOVE
     private Vector3 playerVelocity = Vector3.zero; 
-    private float velocityXZ = 2f;
     private Vector2 inputAxis;
 
     private float timeToMaxSpeed = 1f;
@@ -30,10 +44,7 @@ public class Player : MonoBehaviour
     //JUMP
 
 
-
-
     public float velocity = 0;
-    Vector3 currentSpeed = Vector3.zero;
 
 
     //CROUCH
@@ -43,17 +54,23 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        Anim = GetComponent<Animator>();
+
         StateMachine = new PlayerStateMachine();
         
 
         IdleState = new PlayerIdleState(this, StateMachine, playerData, "idle");
         MoveState = new PlayerMoveState(this, StateMachine, playerData, "move");
+        CrouchIdleState = new PlayerCrouchIdleState(this, StateMachine, playerData, "crouchIdle");
+        CrouchMoveState = new PlayerCrouchMoveState(this, StateMachine, playerData, "crouchMove");
+        LandState = new PlayerLandState(this, StateMachine, playerData, "land");
+        onAirState = new PlayerOnAirState(this, StateMachine, playerData, "onAir");
+        jumpState = new PlayerJumpState(this, StateMachine, playerData, "jump");
 
     }
     void Start()
     {
         Controller = GetComponent<CharacterController>();
-        Anim = GetComponent<Animator>();
         StateMachine.Initialize(IdleState);
 
 
@@ -65,36 +82,23 @@ public class Player : MonoBehaviour
         StateMachine.CurrentState.LogicUpdate();
 
 
-        if (InputManager._INPUT_MANAGER.GetCrouchButtonIsPressed())
-        {
-            isCrouching = true;
-        }
-        else
-        {
-            isCrouching = false;
-        }
-
-
-        
-
-
+       
         Controller.Move(playerData.finalVelocity * Time.deltaTime);
-        currentSpeed = playerVelocity;
 
 
     }
 
     public void SetVelocity() 
     {
-        playerVelocity =playerData.finalVelocity;
+        //playerVelocity = playerData.finalVelocity;
     }
     public  float GetCurrentSpeedX()
     {
-        return currentSpeed.x;
+        return inputAxis.x;
     }
     public  float GetCurrentSpeedY()
     {
-        return currentSpeed.z;
+        return inputAxis.y;
     }
     public  float GetCurrentVelocity()
     {

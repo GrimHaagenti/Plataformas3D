@@ -11,6 +11,8 @@ public class InputManager : MonoBehaviour
     private Vector2 leftAxisValue = Vector2.zero;
     private float timeSinceJumpPressed = 0f;
     private bool CrouchButtonPressed = false;
+    private bool jumpButtonReleased = false;
+
     public Vector2 mousePosition { get; private set; }
 
     private void Awake()
@@ -26,6 +28,7 @@ public class InputManager : MonoBehaviour
             playerInputs.Character.Enable();
 
             playerInputs.Character.Jump.performed += JumpButtonPressed;
+            playerInputs.Character.Jump.canceled += JumpButtonReleased;
             playerInputs.Character.Move.performed += LeftAxisUpdate;
             playerInputs.Character.Crouch.performed += IsCrouchButtonPressed;
             playerInputs.Character.Crouch.canceled += IsCrouchButtonReleased;
@@ -47,7 +50,13 @@ public class InputManager : MonoBehaviour
 
     private void JumpButtonPressed(InputAction.CallbackContext context)
     {
-        timeSinceJumpPressed = 0f; 
+        timeSinceJumpPressed = 0f;
+        jumpButtonReleased = false;
+    }
+
+    private void JumpButtonReleased(InputAction.CallbackContext context)
+    {
+        jumpButtonReleased = true;
     }
     private void LeftAxisUpdate(InputAction.CallbackContext context)
     {
@@ -64,6 +73,9 @@ public class InputManager : MonoBehaviour
         CrouchButtonPressed = false;
     }
 
+
+
+
     public bool GetJumpButtonIsPressed()
     {
         return timeSinceJumpPressed == 0f;
@@ -76,5 +88,10 @@ public class InputManager : MonoBehaviour
     public bool GetCrouchButtonIsPressed()
     {
         return CrouchButtonPressed;
+    }
+
+    public bool GetJumpButtonIsReleased()
+    {
+        return jumpButtonReleased;
     }
 }

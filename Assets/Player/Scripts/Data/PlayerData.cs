@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     [Header("Move State")]
-    public float velocityXZ = 5f;
+    public float velocityXZ = 1f;
     
     [Header("Jump State")]
     public float coyoteTime = 1f;

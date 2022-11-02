@@ -12,3 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6b4c4929f07354a84beaa6d478417c, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  velocityXZ: 1.2
+  coyoteTime: 1
+  gravity: 5
+  jumpForce: 10
+  max_fallSpeed: 10
+  finalVelocity: {x: 0, y: -0.0542965, z: 0}
