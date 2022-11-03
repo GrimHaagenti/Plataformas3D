@@ -2,17 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTouchingWallState : MonoBehaviour
+public class PlayerTouchingWallState : PlayerState
 {
-    // Start is called before the first frame update
-    void Start()
+    public PlayerTouchingWallState(Player _player, PlayerStateMachine _stateMachine, PlayerData _playerData, string _animBoolName) : base(_player, _stateMachine, _playerData, _animBoolName)
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void DoChecks()
     {
-        
+        base.DoChecks();
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+    }
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+
+
     }
 }

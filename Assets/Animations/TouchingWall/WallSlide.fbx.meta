@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 7f3fe108d468d8b4ab056a08a5c7fdf7
+guid: 63102280ff6d6b4408a702957b860b71
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: landing
+    second: Wallslide
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,19 +36,19 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: landing
+      name: Wallslide
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 12
-      lastFrame: 20
+      firstFrame: 7
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

@@ -38,6 +38,10 @@ public class PlayerCrouchMoveState : PlayerGroundedState
         {
             stateMachine.ChangeState(player.longJumpState);
         }
+        if (jumpInput && inputAxis.y < 0)
+        {
+            stateMachine.ChangeState(player.blackflipState);
+        }
 
         MoveCharacter(playerData.crouchingVelocity);
         player.velocity = new Vector3(playerData.finalVelocity.x, 0, playerData.finalVelocity.z).magnitude;

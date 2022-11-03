@@ -31,6 +31,11 @@ public class PlayerGroundedState : PlayerState
         
         direction.y = -1f;
 
+        if (Time.time - startTime > playerData.maxTimeToAdvanceJump)
+        {
+            playerData.currentJump = PlayerData.JumpsEnum._NO_JUMP;
+        }
+
 
         if (player.Controller.isGrounded)
         {

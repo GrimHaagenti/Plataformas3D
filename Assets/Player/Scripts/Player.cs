@@ -14,9 +14,11 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private PlayerData playerData;
+    [SerializeField]
+    public Collider WallCollision;
 
     #region PlayerStates
-    
+
     //GROUNDED
     public PlayerIdleState IdleState { get; private set; }
     public PlayerMoveState MoveState { get; private set; }
@@ -31,8 +33,11 @@ public class Player : MonoBehaviour
     public PlayerJumpState jumpState { get; private set; }
     public PlayerLongJumpState longJumpState { get; private set; }
     public PlayerBackFlipState blackflipState { get; private set; }
+    public PlayerWallJumpState wallJumpState { get; private set; }
 
-    
+
+    //TOUCHING WALL
+    public PlayerWallSlideState wallSlideState { get; private set; }
 
     #endregion
 
@@ -71,7 +76,8 @@ public class Player : MonoBehaviour
         jumpState = new PlayerJumpState(this, StateMachine, playerData, "jump");
         longJumpState = new PlayerLongJumpState(this, StateMachine, playerData, "longJump");
         blackflipState = new PlayerBackFlipState(this, StateMachine, playerData, "backflip");
-
+        wallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, "wallslide");
+        wallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "walljump");
     }
     void Start()
     {
@@ -92,6 +98,7 @@ public class Player : MonoBehaviour
         playerData.tripleJumpForce = 2 * playerData.tripleJumpDistance / playerData.tripleJumpTime;
         playerData.backflipJumpForce = 2 * playerData.backflipJumpDistance / playerData.backflipJumpTime;
         playerData.longJumpForce = 2 * playerData.longJumpDistance / playerData.longJumpTime;
+        playerData.wallJumpForce = 2 * playerData.wallJumpDistance / playerData.wallJumpTime;
     }
     // Update is called once per frame
     void Update()
@@ -100,12 +107,15 @@ public class Player : MonoBehaviour
         inputAxis = InputManager._INPUT_MANAGER.GetLeftAxisValue();
 
 
-
         Controller.Move(playerData.finalVelocity * Time.deltaTime);
 
 
     }
-
+    public PlayerData GetPlayerData()
+    {
+        return playerData;
+    }
+  
     public void SetVelocity() 
     {
         //playerVelocity = playerData.finalVelocity;

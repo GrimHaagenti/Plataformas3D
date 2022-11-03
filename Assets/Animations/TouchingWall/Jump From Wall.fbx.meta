@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 7f3fe108d468d8b4ab056a08a5c7fdf7
+guid: 7c501faa8f2c80c4fabece1006798e13
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: landing
+    second: WallJump
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: landing
+      name: WallJump
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 12
-      lastFrame: 20
+      firstFrame: 10.6
+      lastFrame: 26
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

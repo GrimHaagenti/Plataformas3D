@@ -16,25 +16,36 @@ MonoBehaviour:
   runningVelocity: 4
   maxSpeed: 0
   coyoteTime: 1
-  gravity: 5
-  max_fallSpeed: 10
+  gravity: 15
+  wallSlideGravity: 2.5
+  max_fallSpeed: 15
+  maxTimeToAdvanceJump: 1
+  gravitySmoothingHeadstart: 0.4
   alreadyJumped: 0
-  backflipDisplacementDistance: 150
+  currentJump: 3
+  backflipDisplacementDistance: 200
   normalJumpForce: 800
   doubleJumpForce: 750
-  tripleJumpForce: 615.38464
-  backflipJumpForce: 700
-  longJumpForce: 133.33333
+  tripleJumpForce: 1000
+  backflipJumpForce: 1000
+  longJumpForce: 200
+  wallJumpForce: 50
   normalJumpTime: 0.5
   doubleJumpTime: 0.8
-  tripleJumpTime: 1.3
+  tripleJumpTime: 0.8
   backflipJumpTime: 0.8
   longJumpTime: 1.5
+  wallJumpTime: 0.8
   normalJumpDistance: 200
   doubleJumpDistance: 300
   tripleJumpDistance: 400
-  backflipJumpDistance: 350
-  longJumpDistance: 100
+  backflipJumpDistance: 400
+  longJumpDistance: 150
+  wallJumpDistance: 200
   maxJumps: 3
   jumpCounter: 0
-  finalVelocity: {x: 0, y: -0.0570455, z: 0}
+  wallLand: 0
+  wallStay: 0
+  wallExit: 1
+  wallJumpDisplacement: 200
+  finalVelocity: {x: 0, y: -0.160269, z: 0}
