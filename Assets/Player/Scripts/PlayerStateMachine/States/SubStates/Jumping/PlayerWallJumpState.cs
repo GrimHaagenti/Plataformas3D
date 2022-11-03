@@ -35,7 +35,7 @@ public class PlayerWallJumpState : PlayerJumpingState
         //MoveCharacter(playerData.runningVelocity);
         player.velocity = new Vector3(playerData.finalVelocity.x, 0, playerData.finalVelocity.z).magnitude;
 
-        yVelocity = playerData.wallJumpForce * Time.deltaTime;
+        yVelocity = playerData.wallJumpForce ;
         yVelocity -= playerData.gravity * Time.deltaTime;
 
         playerData.finalVelocity.y = yVelocity;

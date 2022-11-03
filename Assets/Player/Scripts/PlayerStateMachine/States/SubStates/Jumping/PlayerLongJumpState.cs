@@ -27,7 +27,7 @@ public class PlayerLongJumpState : PlayerJumpingState
     {
         base.LogicUpdate();
 
-        yVelocity = playerData.longJumpForce * Time.deltaTime;
+        yVelocity = playerData.longJumpForce ;
         playerData.finalVelocity = player.gameObject.transform.forward * playerData.runningVelocity*2;
         playerData.finalVelocity.y = yVelocity;
         jumpTimer += Time.deltaTime;

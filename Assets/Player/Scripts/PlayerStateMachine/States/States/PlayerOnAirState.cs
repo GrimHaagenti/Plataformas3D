@@ -39,8 +39,7 @@ public class PlayerOnAirState : PlayerState
             stateMachine.ChangeState(player.wallSlideState);
         }
 
-        ySpeed += ySpeed *(Time.time - startTime)* playerData.gravity * Time.deltaTime;
-        ySpeed -= (Time.time - startTime);
+        ySpeed += ySpeed * playerData.gravity * Time.deltaTime;
         playerData.coyoteTime -= Time.deltaTime;
         if (InputManager._INPUT_MANAGER.GetJumpButtonIsPressed() && playerData.coyoteTime >= 0f)
         {

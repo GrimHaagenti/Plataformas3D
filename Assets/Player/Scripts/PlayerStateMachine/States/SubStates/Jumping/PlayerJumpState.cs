@@ -21,23 +21,32 @@ public class PlayerJumpState : PlayerJumpingState
         switch (playerData.currentJump)
         {
             case PlayerData.JumpsEnum._NO_JUMP:
+                
                 playerData.currentJump = PlayerData.JumpsEnum.NORMALJUMP;
+                yVelocity = playerData.normalJumpForce;
                 break;
             case PlayerData.JumpsEnum.NORMALJUMP:
+
                 playerData.currentJump = PlayerData.JumpsEnum.DOUBLEJUMP;
+                yVelocity = playerData.doubleJumpForce;
+
                 break;
             case PlayerData.JumpsEnum.DOUBLEJUMP:
                 if (inputAxis == Vector2.zero)
                 {
                     playerData.currentJump = PlayerData.JumpsEnum.NORMALJUMP;
+                yVelocity = playerData.normalJumpForce;
                 }
                 else
                 {
                     playerData.currentJump = PlayerData.JumpsEnum.TRIPLEJUMP;
+                    yVelocity = playerData.tripleJumpForce;
+
                 }
                 break;
             case PlayerData.JumpsEnum.TRIPLEJUMP:
                 playerData.currentJump = PlayerData.JumpsEnum.NORMALJUMP;
+                yVelocity = playerData.normalJumpForce;
                 break;
 
         }
@@ -85,7 +94,7 @@ public class PlayerJumpState : PlayerJumpingState
 
     private void Jump(float jumpForce, float jumpTime)
     {
-        yVelocity = jumpForce * Time.deltaTime ;
+
         yVelocity -=  playerData.gravity * Time.deltaTime;
 
         playerData.finalVelocity.y = yVelocity;

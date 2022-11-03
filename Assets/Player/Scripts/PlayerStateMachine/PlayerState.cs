@@ -12,7 +12,7 @@ public class PlayerState
 
     protected Vector3 direction;
     protected Vector2 inputAxis;
-
+    Vector3 velocityCalc = Vector3.zero;
 
     protected float startTime;
     private string animBoolName;
@@ -52,8 +52,13 @@ public class PlayerState
     public void MoveCharacter(float velocity)
     {
         player.transform.rotation = Quaternion.Euler(0f, player.camera.transform.eulerAngles.y, 0f);
-        playerData.finalVelocity.x = direction.x * velocity;
-        playerData.finalVelocity.z = direction.z * velocity;
+        velocityCalc.x = (direction.x * velocity) ;
+        velocityCalc.z = (direction.z * velocity) ;
+
+        velocityCalc = Vector3.ClampMagnitude(velocityCalc, playerData.maxSpeed);
+        playerData.finalVelocity.x = velocityCalc.x;
+        playerData.finalVelocity.z = velocityCalc.z;
+
     }
 }
 

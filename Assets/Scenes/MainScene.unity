@@ -187,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 1438460574}
   playerData: {fileID: 11400000, guid: 9457c1a771b80624ebece00731aa66f1, type: 2}
-  WallCollision: {fileID: 0}
+  WallCollision: {fileID: 1344998995}
   velocity: 0
 --- !u!143 &358406201
 CharacterController:

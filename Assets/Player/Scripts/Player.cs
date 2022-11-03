@@ -93,12 +93,12 @@ public class Player : MonoBehaviour
 
     private void CalculateJumpForces()
     {
-        playerData.normalJumpForce = 2 * playerData.normalJumpDistance / playerData.normalJumpTime;
-        playerData.doubleJumpForce = 2 * playerData.doubleJumpDistance / playerData.doubleJumpTime;
-        playerData.tripleJumpForce = 2 * playerData.tripleJumpDistance / playerData.tripleJumpTime;
-        playerData.backflipJumpForce = 2 * playerData.backflipJumpDistance / playerData.backflipJumpTime;
-        playerData.longJumpForce = 2 * playerData.longJumpDistance / playerData.longJumpTime;
-        playerData.wallJumpForce = 2 * playerData.wallJumpDistance / playerData.wallJumpTime;
+        playerData.normalJumpForce = playerData.normalJumpDistance / playerData.normalJumpTime;
+        playerData.doubleJumpForce = playerData.doubleJumpDistance / playerData.doubleJumpTime;
+        playerData.tripleJumpForce = playerData.tripleJumpDistance / playerData.tripleJumpTime;
+        playerData.backflipJumpForce = playerData.backflipJumpDistance / playerData.backflipJumpTime;
+        playerData.longJumpForce = playerData.longJumpDistance / playerData.longJumpTime;
+        playerData.wallJumpForce = playerData.wallJumpDistance / playerData.wallJumpTime;
     }
     // Update is called once per frame
     void Update()

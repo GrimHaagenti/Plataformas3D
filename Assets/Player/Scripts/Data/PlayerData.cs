@@ -10,6 +10,7 @@ public class PlayerData : ScriptableObject
     [Header("Move State")]
     public float crouchingVelocity = 1f;
     public float runningVelocity = 5f;
+    public float accel = 2f;
     public float maxSpeed;
 
     

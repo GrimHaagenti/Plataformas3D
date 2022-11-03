@@ -30,23 +30,24 @@ public class PlayerGroundedState : PlayerState
 
         
         direction.y = -1f;
+        velocity.y = -1f * playerData.gravity * Time.deltaTime;
+        playerData.coyoteTime = 1f;
 
         if (Time.time - startTime > playerData.maxTimeToAdvanceJump)
         {
             playerData.currentJump = PlayerData.JumpsEnum._NO_JUMP;
         }
 
-
-        if (player.Controller.isGrounded)
-        {
-
-            velocity.y = -1f * playerData.gravity * Time.deltaTime;
-            playerData.coyoteTime = 1f;
-        }
-        else
+        if (!player.Controller.isGrounded)
         {
             stateMachine.ChangeState(player.onAirState);
         }
+
+
+
+
+
+
         playerData.finalVelocity = velocity;
 
     }

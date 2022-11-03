@@ -34,7 +34,7 @@ public class PlayerBackFlipState : PlayerJumpingState
 
 
         playerData.finalVelocity = Vector3.Lerp(player.gameObject.transform.position, -player.gameObject.transform.forward * playerData.backflipDisplacementDistance, playerData.backflipJumpTime/Time.deltaTime)*Time.deltaTime;
-        yVelocity = playerData.backflipJumpForce * Time.deltaTime;
+        yVelocity = playerData.backflipJumpForce ;
         playerData.finalVelocity.y = yVelocity;
         jumpTimer += Time.deltaTime;
 
