@@ -35,6 +35,10 @@ public class PlayerCrouchIdleState : PlayerGroundedState
         {
             stateMachine.ChangeState(player.IdleState);
         }
+        if (jumpInput) 
+        {
+            stateMachine.ChangeState(player.blackflipState);
+        }
 
         playerData.finalVelocity.x = 0f;
         playerData.finalVelocity.z = 0f;

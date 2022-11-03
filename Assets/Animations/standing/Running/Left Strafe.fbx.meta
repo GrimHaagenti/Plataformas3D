@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: b81636615fade284e995016730320df5
+guid: 57da7ae581603d04c9b6c3cbc4965095
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: LongJump
+    second: LeftRun
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,26 +36,26 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: LongJump
+      name: LeftRun
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 9
-      lastFrame: 26
+      firstFrame: 0
+      lastFrame: 21
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 0
+      keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
-      heightFromFeet: 1
+      heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

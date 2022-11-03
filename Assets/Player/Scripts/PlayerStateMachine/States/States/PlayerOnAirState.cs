@@ -34,20 +34,20 @@ public class PlayerOnAirState : PlayerState
             stateMachine.ChangeState(player.LandState);
         }
 
-
-        
         ySpeed += ySpeed * playerData.gravity * Time.deltaTime;
         playerData.coyoteTime -= Time.deltaTime;
         if (InputManager._INPUT_MANAGER.GetJumpButtonIsPressed() && playerData.coyoteTime >= 0f)
         {
+            if (!playerData.alreadyJumped)
+            {
+                stateMachine.ChangeState(player.jumpState);
 
-            //TO IMPLEMENT COYOTE JUMP
-            stateMachine.ChangeState(player.jumpState);
+            }
         }
-            
-        if (ySpeed >= playerData.max_fallSpeed) { ySpeed = playerData.max_fallSpeed; }
+        playerData.finalVelocity.x = playerData.finalVelocity.x + (direction.x * playerData.runningVelocity * Time.deltaTime);
+        playerData.finalVelocity.z = playerData.finalVelocity.z + (direction.z * playerData.runningVelocity * Time.deltaTime);
 
+        if (ySpeed <= -playerData.max_fallSpeed) { ySpeed = -playerData.max_fallSpeed; }
         playerData.finalVelocity.y = ySpeed;
-        //player.SetVelocity();
     }
 }

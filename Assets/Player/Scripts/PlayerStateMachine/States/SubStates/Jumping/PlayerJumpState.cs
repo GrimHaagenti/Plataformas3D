@@ -18,6 +18,7 @@ public class PlayerJumpState : PlayerJumpingState
     public override void Enter()
     {
         base.Enter();
+
     }
 
     public override void Exit()
@@ -28,19 +29,24 @@ public class PlayerJumpState : PlayerJumpingState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if(jumpTimer >= timeToPeak || InputManager._INPUT_MANAGER.GetJumpButtonIsReleased() )
+        if (InputManager._INPUT_MANAGER.GetJumpButtonIsReleased())
         {
-            jumpTimer = 0;
             stateMachine.ChangeState(player.onAirState);
-            
-        }
-        else
-        {
-            yVelocity = playerData.jumpForce;
-            jumpTimer += Time.deltaTime;
         }
 
-        playerData.finalVelocity.y = yVelocity;
+        MoveCharacter(playerData.runningVelocity); 
+        player.velocity = new Vector3(playerData.finalVelocity.x, 0, playerData.finalVelocity.z).magnitude;
+
+        yVelocity = playerData.normalJumpForce * Time.deltaTime;
+        playerData.finalVelocity.y = yVelocity ;
+        jumpTimer += Time.deltaTime;
+
+        if (jumpTimer >= playerData.normalJumpTime)
+        {
+
+            stateMachine.ChangeState(player.onAirState);
+        }
+       
+           
     }
 }

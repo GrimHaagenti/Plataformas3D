@@ -21,15 +21,22 @@ public class PlayerJumpingState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        playerData.alreadyJumped = true;
     }
 
     public override void Exit()
     {
         base.Exit();
+        jumpTimer = 0;
+
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+
+      
+
     }
 }

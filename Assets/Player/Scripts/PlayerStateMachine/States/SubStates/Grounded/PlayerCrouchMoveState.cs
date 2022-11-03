@@ -34,10 +34,12 @@ public class PlayerCrouchMoveState : PlayerGroundedState
         {
             stateMachine.ChangeState(player.MoveState);
         }
+        if (jumpInput && inputAxis.y > 0)
+        {
+            stateMachine.ChangeState(player.longJumpState);
+        }
 
-        player.transform.rotation = Quaternion.Euler(0f, player.camera.transform.eulerAngles.y, 0f);
-        playerData.finalVelocity.x = direction.x * playerData.velocityXZ;
-        playerData.finalVelocity.z = direction.z * playerData.velocityXZ;
+        MoveCharacter(playerData.crouchingVelocity);
         player.velocity = new Vector3(playerData.finalVelocity.x, 0, playerData.finalVelocity.z).magnitude;
         player.SetVelocity();
     }

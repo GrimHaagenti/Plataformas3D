@@ -12,9 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6b4c4929f07354a84beaa6d478417c, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  velocityXZ: 1.2
+  crouchingVelocity: 1
+  runningVelocity: 4
+  maxSpeed: 0
   coyoteTime: 1
   gravity: 5
-  jumpForce: 10
   max_fallSpeed: 10
-  finalVelocity: {x: 0, y: -0.0542965, z: 0}
+  alreadyJumped: 0
+  backflipDisplacementDistance: 150
+  normalJumpForce: 800
+  doubleJumpForce: 750
+  tripleJumpForce: 615.38464
+  backflipJumpForce: 700
+  longJumpForce: 133.33333
+  normalJumpTime: 0.5
+  doubleJumpTime: 0.8
+  tripleJumpTime: 1.3
+  backflipJumpTime: 0.8
+  longJumpTime: 1.5
+  normalJumpDistance: 200
+  doubleJumpDistance: 300
+  tripleJumpDistance: 400
+  backflipJumpDistance: 350
+  longJumpDistance: 100
+  maxJumps: 3
+  jumpCounter: 0
+  finalVelocity: {x: 0, y: -0.0570455, z: 0}

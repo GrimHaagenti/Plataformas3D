@@ -34,6 +34,10 @@ public class PlayerIdleState : PlayerGroundedState
         {
             stateMachine.ChangeState(player.CrouchIdleState);
         }
+        if (jumpInput)
+        {
+            stateMachine.ChangeState(player.jumpState);
+        }
 
         playerData.finalVelocity.x = 0f;
         playerData.finalVelocity.z = 0f;

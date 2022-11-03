@@ -29,6 +29,9 @@ public class Player : MonoBehaviour
 
     //JUMPING
     public PlayerJumpState jumpState { get; private set; }
+    public PlayerLongJumpState longJumpState { get; private set; }
+    public PlayerBackFlipState blackflipState { get; private set; }
+
     
 
     #endregion
@@ -66,23 +69,38 @@ public class Player : MonoBehaviour
         LandState = new PlayerLandState(this, StateMachine, playerData, "land");
         onAirState = new PlayerOnAirState(this, StateMachine, playerData, "onAir");
         jumpState = new PlayerJumpState(this, StateMachine, playerData, "jump");
+        longJumpState = new PlayerLongJumpState(this, StateMachine, playerData, "longJump");
+        blackflipState = new PlayerBackFlipState(this, StateMachine, playerData, "backflip");
 
     }
     void Start()
     {
         Controller = GetComponent<CharacterController>();
+
+        CalculateJumpForces();
+
         StateMachine.Initialize(IdleState);
 
 
     }
 
+
+    private void CalculateJumpForces()
+    {
+        playerData.normalJumpForce = 2 * playerData.normalJumpDistance / playerData.normalJumpTime;
+        playerData.doubleJumpForce = 2 * playerData.doubleJumpDistance / playerData.doubleJumpTime;
+        playerData.tripleJumpForce = 2 * playerData.tripleJumpDistance / playerData.tripleJumpTime;
+        playerData.backflipJumpForce = 2 * playerData.backflipJumpDistance / playerData.backflipJumpTime;
+        playerData.longJumpForce = 2 * playerData.longJumpDistance / playerData.longJumpTime;
+    }
     // Update is called once per frame
     void Update()
     {
         StateMachine.CurrentState.LogicUpdate();
+        inputAxis = InputManager._INPUT_MANAGER.GetLeftAxisValue();
 
 
-       
+
         Controller.Move(playerData.finalVelocity * Time.deltaTime);
 
 

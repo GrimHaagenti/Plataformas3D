@@ -9,6 +9,11 @@ public class PlayerState
     protected PlayerData playerData;
     protected Animator Anim;
 
+
+    protected Vector3 direction;
+    protected Vector2 inputAxis;
+
+
     protected float startTime;
     private string animBoolName;
 
@@ -39,7 +44,16 @@ public class PlayerState
     }
     public virtual void LogicUpdate()
     {
+        inputAxis = InputManager._INPUT_MANAGER.GetLeftAxisValue();
 
+        direction = Quaternion.Euler(0f, player.camera.transform.eulerAngles.y, 0f) * new Vector3(inputAxis.x, 0f, inputAxis.y);
+        direction.Normalize();
+    }
+    public void MoveCharacter(float velocity)
+    {
+        player.transform.rotation = Quaternion.Euler(0f, player.camera.transform.eulerAngles.y, 0f);
+        playerData.finalVelocity.x = direction.x * velocity;
+        playerData.finalVelocity.z = direction.z * velocity;
     }
 }
 
