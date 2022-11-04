@@ -26,6 +26,7 @@ public class PlayerWallSlideState : PlayerTouchingWallState
 
     public override void LogicUpdate()
     {
+
         base.LogicUpdate();
         if (player.Controller.isGrounded)
         {

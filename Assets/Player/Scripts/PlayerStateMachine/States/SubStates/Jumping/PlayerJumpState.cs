@@ -59,6 +59,8 @@ public class PlayerJumpState : PlayerJumpingState
 
     public override void LogicUpdate()
     {
+        playerData.lastXInput = direction.x;
+        playerData.lastYInput = direction.z;
         base.LogicUpdate();
         if (InputManager._INPUT_MANAGER.GetJumpButtonIsReleased())
         {

@@ -10,10 +10,17 @@ public class PlayerData : ScriptableObject
     [Header("Move State")]
     public float crouchingVelocity = 1f;
     public float runningVelocity = 5f;
-    public float accel = 2f;
-    public float maxSpeed;
+    public float accel = 0.5f;
+    public float deaccel = 0.8f;
+    public float maxSpeed = 5f;
+    public float currentAccel = 0f;
+    [Header("Camera Rotation")]
+    public float turnSmoothSpeed = 3f;
+    public float turnSmoothTime = 0.1f;
 
-    
+
+    public float lastXInput = 0;
+    public float lastYInput = 0;
     [Header("Jump State")]
     public float coyoteTime = 1f;
     public float gravity = 20f;

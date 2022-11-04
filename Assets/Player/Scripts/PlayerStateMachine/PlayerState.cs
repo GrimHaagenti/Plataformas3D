@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerState 
+public class PlayerState
 {
     protected Player player;
     protected PlayerStateMachine stateMachine;
@@ -12,7 +12,7 @@ public class PlayerState
 
     protected Vector3 direction;
     protected Vector2 inputAxis;
-    Vector3 velocityCalc = Vector3.zero;
+    static Vector3 velocityCalc = Vector3.zero;
 
     protected float startTime;
     private string animBoolName;
@@ -36,7 +36,7 @@ public class PlayerState
         Anim.SetBool(animBoolName, true);
         startTime = Time.time;
     }
-   
+
     public virtual void Exit()
     {
         Anim.SetBool(animBoolName, false);
@@ -51,14 +51,36 @@ public class PlayerState
     }
     public void MoveCharacter(float velocity)
     {
-        player.transform.rotation = Quaternion.Euler(0f, player.camera.transform.eulerAngles.y, 0f);
-        velocityCalc.x = (direction.x * velocity) ;
-        velocityCalc.z = (direction.z * velocity) ;
+        //player.transform.rotation = Quaternion.Euler(0f, player.camera.transform.eulerAngles.y, 0f);
+        playerData.currentAccel +=playerData.accel;
+        if(playerData.currentAccel > playerData.maxSpeed) { playerData.currentAccel = playerData.maxSpeed; }
 
-        velocityCalc = Vector3.ClampMagnitude(velocityCalc, playerData.maxSpeed);
+        velocityCalc.x = (direction.x * playerData.currentAccel);
+        velocityCalc.z = (direction.z * playerData.currentAccel);
+
         playerData.finalVelocity.x = velocityCalc.x;
         playerData.finalVelocity.z = velocityCalc.z;
 
+        float targetRotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        float angle = Mathf.SmoothDampAngle(player.gameObject.transform.eulerAngles.y, targetRotation, ref playerData.turnSmoothSpeed, playerData.turnSmoothTime);
+        { player.gameObject.transform.rotation = Quaternion.Euler(0f, angle, 0f); }
+
+    }
+
+    public void Deacelerate()
+    {
+        player.transform.rotation = Quaternion.Euler(0f, player.camera.transform.eulerAngles.y, 0f);
+        playerData.currentAccel -= playerData.deaccel;
+        playerData.currentAccel = Mathf.Max(playerData.currentAccel, 0);
+        
+
+        velocityCalc.x = playerData.lastXInput * playerData.currentAccel;
+        velocityCalc.z = playerData.lastYInput * playerData.currentAccel;
+        Debug.Log(velocityCalc);
+        playerData.finalVelocity.x = velocityCalc.x;
+        playerData.finalVelocity.z = velocityCalc.z;
+        
     }
 }
+ 
 

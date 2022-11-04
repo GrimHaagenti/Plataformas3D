@@ -30,10 +30,13 @@ public class PlayerBackFlipState : PlayerJumpingState
 
     public override void LogicUpdate()
     {
+        playerData.lastXInput = direction.x;
+        playerData.lastYInput = direction.z;
         base.LogicUpdate();
 
 
         playerData.finalVelocity = Vector3.Lerp(player.gameObject.transform.position, -player.gameObject.transform.forward * playerData.backflipDisplacementDistance, playerData.backflipJumpTime/Time.deltaTime)*Time.deltaTime;
+        MoveCharacter(0);
         yVelocity = playerData.backflipJumpForce ;
         playerData.finalVelocity.y = yVelocity;
         jumpTimer += Time.deltaTime;

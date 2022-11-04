@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerCrouchIdleState : PlayerGroundedState
 {
+
+
     public PlayerCrouchIdleState(Player _player, PlayerStateMachine _stateMachine, PlayerData _playerData, string _animBoolName) : base(_player, _stateMachine, _playerData, _animBoolName)
     {
     }
@@ -40,10 +42,8 @@ public class PlayerCrouchIdleState : PlayerGroundedState
             stateMachine.ChangeState(player.blackflipState);
         }
 
-        playerData.finalVelocity.x = 0f;
-        playerData.finalVelocity.z = 0f;
 
-        player.SetVelocity();
+        Deacelerate();
 
 
     }

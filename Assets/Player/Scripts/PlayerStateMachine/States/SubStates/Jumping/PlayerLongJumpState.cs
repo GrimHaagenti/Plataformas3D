@@ -25,10 +25,13 @@ public class PlayerLongJumpState : PlayerJumpingState
 
     public override void LogicUpdate()
     {
+        playerData.lastXInput = direction.x;
+        playerData.lastYInput = direction.z;
         base.LogicUpdate();
 
         yVelocity = playerData.longJumpForce ;
         playerData.finalVelocity = player.gameObject.transform.forward * playerData.runningVelocity*2;
+        MoveCharacter(0);
         playerData.finalVelocity.y = yVelocity;
         jumpTimer += Time.deltaTime;
 

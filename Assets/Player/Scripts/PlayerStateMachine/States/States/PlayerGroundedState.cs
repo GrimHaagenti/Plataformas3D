@@ -30,7 +30,7 @@ public class PlayerGroundedState : PlayerState
 
         
         direction.y = -1f;
-        velocity.y = -1f * playerData.gravity * Time.deltaTime;
+        playerData.finalVelocity.y = -1f * playerData.gravity * Time.deltaTime;
         playerData.coyoteTime = 1f;
 
         if (Time.time - startTime > playerData.maxTimeToAdvanceJump)
@@ -48,7 +48,6 @@ public class PlayerGroundedState : PlayerState
 
 
 
-        playerData.finalVelocity = velocity;
 
     }
     public override void Exit()

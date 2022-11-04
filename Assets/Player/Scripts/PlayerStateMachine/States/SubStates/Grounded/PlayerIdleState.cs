@@ -38,11 +38,7 @@ public class PlayerIdleState : PlayerGroundedState
         {
             stateMachine.ChangeState(player.jumpState);
         }
-
-        playerData.finalVelocity.x = 0f;
-        playerData.finalVelocity.z = 0f;
-
-        player.SetVelocity();
+        Deacelerate();
 
     }
 }

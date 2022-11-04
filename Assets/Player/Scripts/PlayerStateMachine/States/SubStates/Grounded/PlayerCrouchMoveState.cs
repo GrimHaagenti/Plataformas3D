@@ -25,6 +25,8 @@ public class PlayerCrouchMoveState : PlayerGroundedState
 
     public override void LogicUpdate()
     {
+        playerData.lastXInput = direction.x;
+        playerData.lastYInput = direction.z;
         base.LogicUpdate();
         if (inputAxis == Vector2.zero)
         {
@@ -45,6 +47,5 @@ public class PlayerCrouchMoveState : PlayerGroundedState
 
         MoveCharacter(playerData.crouchingVelocity);
         player.velocity = new Vector3(playerData.finalVelocity.x, 0, playerData.finalVelocity.z).magnitude;
-        player.SetVelocity();
     }
 }

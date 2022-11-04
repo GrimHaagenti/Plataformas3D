@@ -14,10 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crouchingVelocity: 1
   runningVelocity: 4
-  accel: 0.2
-  maxSpeed: 15
+  accel: 0.5
+  deaccel: 0.5
+  maxSpeed: 12
+  currentAccel: 0
+  lastXInput: 0
+  lastYInput: 0
   coyoteTime: 1
-  gravity: 5
+  gravity: 12
   wallSlideGravity: 2.5
   max_fallSpeed: 10
   maxTimeToAdvanceJump: 1
@@ -26,27 +30,27 @@ MonoBehaviour:
   currentJump: 3
   backflipDisplacementDistance: 200
   normalJumpForce: 10
-  doubleJumpForce: 8.75
-  tripleJumpForce: 12.5
-  backflipJumpForce: 12.5
-  longJumpForce: 4
-  wallJumpForce: 8.75
-  normalJumpTime: 0.5
-  doubleJumpTime: 0.8
+  doubleJumpForce: 10
+  tripleJumpForce: 8.75
+  backflipJumpForce: 8.75
+  longJumpForce: 1.3333334
+  wallJumpForce: 5
+  normalJumpTime: 0.3
+  doubleJumpTime: 0.5
   tripleJumpTime: 0.8
   backflipJumpTime: 0.8
   longJumpTime: 1.5
   wallJumpTime: 0.8
-  normalJumpDistance: 5
-  doubleJumpDistance: 7
-  tripleJumpDistance: 10
-  backflipJumpDistance: 10
-  longJumpDistance: 6
-  wallJumpDistance: 7
+  normalJumpDistance: 3
+  doubleJumpDistance: 5
+  tripleJumpDistance: 7
+  backflipJumpDistance: 7
+  longJumpDistance: 2
+  wallJumpDistance: 4
   maxJumps: 3
   jumpCounter: 0
   wallLand: 0
   wallStay: 0
   wallExit: 1
   wallJumpDisplacement: 200
-  finalVelocity: {x: 0, y: -0.070448, z: 0}
+  finalVelocity: {x: 0, y: -0.1564956, z: 0}
