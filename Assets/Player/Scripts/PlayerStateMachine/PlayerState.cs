@@ -63,13 +63,14 @@ public class PlayerState
 
         float targetRotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         float angle = Mathf.SmoothDampAngle(player.gameObject.transform.eulerAngles.y, targetRotation, ref playerData.turnSmoothSpeed, playerData.turnSmoothTime);
-        { player.gameObject.transform.rotation = Quaternion.Euler(0f, angle, 0f); }
+        if (inputAxis != Vector2.zero) { player.gameObject.transform.rotation = Quaternion.Euler(0f, angle, 0f); }
+
 
     }
 
     public void Deacelerate()
     {
-        player.transform.rotation = Quaternion.Euler(0f, player.camera.transform.eulerAngles.y, 0f);
+        //player.transform.rotation = Quaternion.Euler(0f, player.camera.transform.eulerAngles.y, 0f);
         playerData.currentAccel -= playerData.deaccel;
         playerData.currentAccel = Mathf.Max(playerData.currentAccel, 0);
         

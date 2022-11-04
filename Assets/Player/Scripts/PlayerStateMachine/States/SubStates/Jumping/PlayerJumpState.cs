@@ -67,7 +67,6 @@ public class PlayerJumpState : PlayerJumpingState
             stateMachine.ChangeState(player.onAirState);
         }
 
-        MoveCharacter(playerData.runningVelocity);
         player.velocity = new Vector3(playerData.finalVelocity.x, 0, playerData.finalVelocity.z).magnitude;
         switch (playerData.currentJump)
         {
@@ -88,6 +87,7 @@ public class PlayerJumpState : PlayerJumpingState
 
 
         }
+        MoveCharacter(playerData.runningVelocity);
 
 
     }
