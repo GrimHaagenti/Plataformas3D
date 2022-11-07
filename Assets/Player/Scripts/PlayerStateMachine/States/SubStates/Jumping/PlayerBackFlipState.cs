@@ -19,7 +19,8 @@ public class PlayerBackFlipState : PlayerJumpingState
     public override void Enter()
     {
         base.Enter();
-        
+        playerData.finalVelocity = (-player.gameObject.transform.forward * playerData.backflipDisplacementDistance * playerData.normalJumpForce/2) * Time.deltaTime;
+        yVelocity = playerData.backflipJumpForce ;
 
     }
 
@@ -35,16 +36,12 @@ public class PlayerBackFlipState : PlayerJumpingState
         base.LogicUpdate();
 
 
-        playerData.finalVelocity = Vector3.Lerp(player.gameObject.transform.position, -player.gameObject.transform.forward * playerData.backflipDisplacementDistance, playerData.backflipJumpTime/Time.deltaTime)*Time.deltaTime;
-        MoveCharacter(0);
-        yVelocity = playerData.backflipJumpForce ;
-        playerData.finalVelocity.y = yVelocity;
-        jumpTimer += Time.deltaTime;
+        //playerData.finalVelocity = Vector3.Lerp(player.gameObject.transform.position, -player.gameObject.transform.forward * playerData.backflipDisplacementDistance, playerData.backflipJumpTime/Time.deltaTime)*Time.deltaTime;
+        //MoveCharacter(playerData.runningMaxSpeed);
+        Jump(playerData.backflipJumpTime);
+        player.velocity = new Vector3(playerData.finalVelocity.x, 0, playerData.finalVelocity.z).magnitude;
 
-        if (jumpTimer >= playerData.backflipJumpTime)
-        {
 
-            stateMachine.ChangeState(player.onAirState);
-        }
+
     }
 }

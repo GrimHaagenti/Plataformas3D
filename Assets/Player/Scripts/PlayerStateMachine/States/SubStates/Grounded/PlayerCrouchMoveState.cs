@@ -21,6 +21,8 @@ public class PlayerCrouchMoveState : PlayerGroundedState
     public override void Exit()
     {
         base.Exit();
+        yVelocity = 0;
+        playerData.finalVelocity = Vector3.zero;
     }
 
     public override void LogicUpdate()
@@ -28,6 +30,7 @@ public class PlayerCrouchMoveState : PlayerGroundedState
         playerData.lastXInput = direction.x;
         playerData.lastYInput = direction.z;
         base.LogicUpdate();
+        
         if (inputAxis == Vector2.zero)
         {
             stateMachine.ChangeState(player.CrouchIdleState);
@@ -36,16 +39,20 @@ public class PlayerCrouchMoveState : PlayerGroundedState
         {
             stateMachine.ChangeState(player.MoveState);
         }
-        if (jumpInput && inputAxis.y > 0)
-        {
-            stateMachine.ChangeState(player.longJumpState);
-        }
         if (jumpInput && inputAxis.y < 0)
         {
             stateMachine.ChangeState(player.blackflipState);
         }
-
-        MoveCharacter(playerData.crouchingVelocity);
+        if (jumpInput && inputAxis.y > 0)
+        {
+            stateMachine.ChangeState(player.longJumpState);
+        }
+        else
+        {
+            MoveCharacter(playerData.crouchingMaxSpeed);
+        }
         player.velocity = new Vector3(playerData.finalVelocity.x, 0, playerData.finalVelocity.z).magnitude;
+        
+       
     }
 }

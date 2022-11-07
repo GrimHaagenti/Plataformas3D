@@ -31,6 +31,15 @@
                     "processors": "StickDeadzone",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ThrowCappy",
+                    "type": "Button",
+                    "id": "d5c5d98a-3066-4570-aaf9-f287a648d7f4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -174,6 +183,17 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db347197-a7ad-4dbd-94f0-10f27de5c6c2",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "ThrowCappy",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

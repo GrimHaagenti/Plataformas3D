@@ -12,47 +12,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6b4c4929f07354a84beaa6d478417c, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  crouchingVelocity: 1
-  runningVelocity: 4
   accel: 0.2
   deaccel: 0.5
-  maxSpeed: 12
+  crouchingMaxSpeed: 1.5
+  runningMaxSpeed: 5
+  OnAirMaxSpeed: 15
   currentAccel: 0
-  turnSmoothSpeed: 285.40964
+  turnSmoothSpeed: -109.12568
   turnSmoothTime: 0.1
-  lastXInput: 0.17149939
-  lastYInput: 0.98518425
+  lastXInput: 0.9940563
+  lastYInput: -0.108866915
   coyoteTime: 1
-  gravity: 12
+  gravity: 20
+  airFriction: 40
   wallSlideGravity: 2.5
-  max_fallSpeed: 10
+  max_fallSpeed: 35
   maxTimeToAdvanceJump: 1
   gravitySmoothingHeadstart: 0.4
   alreadyJumped: 0
-  currentJump: 2
-  backflipDisplacementDistance: 200
-  normalJumpForce: 10
-  doubleJumpForce: 10
-  tripleJumpForce: 8.75
-  backflipJumpForce: 8.75
-  longJumpForce: 1.3333334
-  wallJumpForce: 5
-  normalJumpTime: 0.3
-  doubleJumpTime: 0.5
-  tripleJumpTime: 0.8
-  backflipJumpTime: 0.8
-  longJumpTime: 1.5
-  wallJumpTime: 0.8
-  normalJumpDistance: 3
-  doubleJumpDistance: 5
-  tripleJumpDistance: 7
-  backflipJumpDistance: 7
-  longJumpDistance: 2
-  wallJumpDistance: 4
+  currentJump: 3
+  SpringJump: 0
+  backflipDisplacementDistance: 50
+  wallJumpDisplacement: 200
+  longJumpDisplacement: 200
+  normalJumpForce: 16.666666
+  doubleJumpForce: 20
+  tripleJumpForce: 24
+  backflipJumpForce: 30
+  longJumpForce: 10
+  wallJumpForce: 13.333333
+  springJumpForce: 33.333332
+  normalJumpTime: 1.2
+  doubleJumpTime: 1.2
+  tripleJumpTime: 1.5
+  backflipJumpTime: 1
+  longJumpTime: 3
+  wallJumpTime: 1.5
+  springJumpTime: 1.5
+  normalJumpDistance: 10
+  doubleJumpDistance: 12
+  tripleJumpDistance: 18
+  backflipJumpDistance: 15
+  longJumpDistance: 15
+  wallJumpDistance: 10
+  springJumpDistance: 25
   maxJumps: 3
   jumpCounter: 0
   wallLand: 0
   wallStay: 0
-  wallExit: 1
-  wallJumpDisplacement: 200
-  finalVelocity: {x: 0, y: -0.102762, z: 0}
+  wallExit: 0
+  wallNormal: {x: 1, y: 0, z: 0}
+  wallslideMaxSpeed: 5
+  finalVelocity: {x: 0, y: -0.14084, z: -0}

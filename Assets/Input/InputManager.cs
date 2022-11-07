@@ -10,8 +10,11 @@ public class InputManager : MonoBehaviour
 
     private Vector2 leftAxisValue = Vector2.zero;
     private float timeSinceJumpPressed = 0f;
+    private float timeSinceCappyPressed = 0f;
     private bool CrouchButtonPressed = false;
+    private bool cappyButtonPressed = false;
     private bool jumpButtonReleased = false;
+
 
     public Vector2 mousePosition { get; private set; }
 
@@ -32,6 +35,8 @@ public class InputManager : MonoBehaviour
             playerInputs.Character.Move.performed += LeftAxisUpdate;
             playerInputs.Character.Crouch.performed += IsCrouchButtonPressed;
             playerInputs.Character.Crouch.canceled += IsCrouchButtonReleased;
+            playerInputs.Character.ThrowCappy.performed += CappyButtonPressed;
+            playerInputs.Character.ThrowCappy.canceled += CappyButtonReleased;
 
             _INPUT_MANAGER = this;
             DontDestroyOnLoad(this);
@@ -41,11 +46,23 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         timeSinceJumpPressed += Time.deltaTime;
-        mousePosition = new Vector2(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue());
+        timeSinceCappyPressed += Time.deltaTime;
+         mousePosition = new Vector2(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue());
 
         
 
         InputSystem.Update();
+    }
+
+    private void CappyButtonPressed(InputAction.CallbackContext context)
+    {
+        cappyButtonPressed = true;
+        timeSinceCappyPressed = 0f;
+    }
+    private void CappyButtonReleased(InputAction.CallbackContext context)
+    {
+        cappyButtonPressed = false;
+
     }
 
     private void JumpButtonPressed(InputAction.CallbackContext context)
@@ -74,8 +91,16 @@ public class InputManager : MonoBehaviour
     }
 
 
+    public bool GetCappyIsPressed()
+    {
+        return cappyButtonPressed;
+    }
 
 
+    public bool GetCappyButtonPressed()
+    {
+        return timeSinceCappyPressed == 0f;
+    }
     public bool GetJumpButtonIsPressed()
     {
         return timeSinceJumpPressed == 0f;

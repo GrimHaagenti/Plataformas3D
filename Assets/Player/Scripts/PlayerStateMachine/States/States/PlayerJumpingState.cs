@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class PlayerJumpingState : PlayerState
 {
-    protected float timeToPeak = 1f;
-    protected float jumpTimer = 0;
-
-    protected float yVelocity = 0f;
+    
 
     public PlayerJumpingState(Player _player, PlayerStateMachine _stateMachine, PlayerData _playerData, string _animBoolName) : base(_player, _stateMachine, _playerData, _animBoolName)
     {
@@ -21,7 +18,9 @@ public class PlayerJumpingState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        jumpTimer = 0;
         playerData.alreadyJumped = true;
+        playerData.finalVelocity.y = 0f;
     }
 
     public override void Exit()
@@ -34,9 +33,13 @@ public class PlayerJumpingState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-
-      
-
+        //if (stateMachine.CurrentState != player.longJumpState)
+        //{
+            if (playerData.finalVelocity.y < -1)
+            {
+                stateMachine.ChangeState(player.onAirState);
+            }
+        
+        
     }
 }

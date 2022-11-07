@@ -49,10 +49,14 @@ public class CameraScript : MonoBehaviour
         Vector3 finalPoint = player.transform.position - transform.forward * distanceToPlayer;
         Vector3 finalPosition = Vector3.zero;
 
+
         //Debug.Log(Vector3.Distance(lastCameraPosition, finalPoint));
+
+
+        
         if (Vector3.Distance(lastCameraPosition, finalPoint ) > upperSmoothingThreshold)
         {
-            finalPosition = Vector3.Lerp(transform.position, finalPoint, smoothFactor*1.5f); 
+            finalPosition = Vector3.Lerp(transform.position, finalPoint, smoothFactor); 
         }
         else if(Vector3.Distance(lastCameraPosition, finalPoint) > lowerSmoothingThreshold) {
             finalPosition = Vector3.Lerp(transform.position, finalPoint, smoothFactor*4f);
@@ -60,12 +64,19 @@ public class CameraScript : MonoBehaviour
         }
         else
         {
-            finalPosition = Vector3.Lerp(transform.position, finalPoint, smoothFactor * 7.5f); ;
+            finalPosition = Vector3.Lerp(transform.position, finalPoint, smoothFactor * 7.5f); 
         }
 
-        RaycastHit hit; 
-        
-        if (Physics.Linecast(player.transform.position, finalPosition, out hit)) { finalPosition = hit.point; }
+        RaycastHit hit;
+
+        if (Physics.Linecast(player.transform.position, finalPosition, out hit))
+        {
+            if (hit.collider.name != "Player" && hit.collider.name != "WallCollision")
+            {
+
+                finalPosition = hit.point;
+            }
+        }
         transform.position = finalPosition;
         lastCameraPosition = transform.position;
     }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerOnAirState : PlayerState
 {
     protected float ySpeed = 0;
+    Vector2 newSpeed = Vector2.zero;
+
     public PlayerOnAirState(Player _player, PlayerStateMachine _stateMachine, PlayerData _playerData, string _animBoolName) : base(_player, _stateMachine, _playerData, _animBoolName)
     {
     }
@@ -17,7 +19,8 @@ public class PlayerOnAirState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        ySpeed = -1f;
+        
+        ySpeed = yVelocity;
     }
 
     public override void Exit()
@@ -32,17 +35,19 @@ public class PlayerOnAirState : PlayerState
 
         base.LogicUpdate();
 
+        
+
         if (player.Controller.isGrounded)
         {
             stateMachine.ChangeState(player.LandState);
         }
-
-        if (playerData.wallStay && inputAxis != Vector2.zero) 
+         if (playerData.wallStay) 
         {
             stateMachine.ChangeState(player.wallSlideState);
         }
        
-        ySpeed += ySpeed * playerData.gravity * Time.deltaTime;
+      
+        ySpeed -= playerData.gravity * Time.deltaTime;
         playerData.coyoteTime -= Time.deltaTime;
         if (InputManager._INPUT_MANAGER.GetJumpButtonIsPressed() && playerData.coyoteTime >= 0f)
         {
@@ -54,8 +59,22 @@ public class PlayerOnAirState : PlayerState
         }
         //playerData.finalVelocity.x = playerData.finalVelocity.x + (direction.x * playerData.runningVelocity * Time.deltaTime);
         //playerData.finalVelocity.z = playerData.finalVelocity.z + (direction.z * playerData.runningVelocity * Time.deltaTime);
-        MoveCharacter(0);
+        //MoveCharacter(playerData.OnAirMaxSpeed);
+
+        playerData.finalVelocity.x += direction.x ;
+        playerData.finalVelocity.z += direction.z ;
+        playerData.finalVelocity.x = Mathf.Lerp(playerData.finalVelocity.x, 0, playerData.airFriction * Time.deltaTime);
+        playerData.finalVelocity.z = Mathf.Lerp(playerData.finalVelocity.z, 0, playerData.airFriction * Time.deltaTime);
+        float targetRotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        float angle = Mathf.SmoothDampAngle(player.gameObject.transform.eulerAngles.y, targetRotation, ref playerData.turnSmoothSpeed, playerData.turnSmoothTime);
+        if (inputAxis != Vector2.zero) { player.gameObject.transform.rotation = Quaternion.Euler(0f, angle, 0f); }
+
+
+
         if (ySpeed <= -playerData.max_fallSpeed) { ySpeed = -playerData.max_fallSpeed; }
         playerData.finalVelocity.y = ySpeed;
+
+        player.velocity = new Vector3(playerData.finalVelocity.x, 0, playerData.finalVelocity.z).magnitude;
+
     }
 }

@@ -39,8 +39,8 @@ ModelImporter:
       name: backflip
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 26
-      lastFrame: 60
+      firstFrame: 28
+      lastFrame: 55
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

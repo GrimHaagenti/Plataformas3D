@@ -48,6 +48,7 @@ public class PlayerJumpState : PlayerJumpingState
                 playerData.currentJump = PlayerData.JumpsEnum.NORMALJUMP;
                 yVelocity = playerData.normalJumpForce;
                 break;
+          
 
         }
     }
@@ -55,6 +56,7 @@ public class PlayerJumpState : PlayerJumpingState
     public override void Exit()
     {
         base.Exit();
+        
     }
 
     public override void LogicUpdate()
@@ -66,48 +68,37 @@ public class PlayerJumpState : PlayerJumpingState
         {
             stateMachine.ChangeState(player.onAirState);
         }
-
+        
         player.velocity = new Vector3(playerData.finalVelocity.x, 0, playerData.finalVelocity.z).magnitude;
         switch (playerData.currentJump)
         {
             case PlayerData.JumpsEnum.NORMALJUMP:
-                Jump(playerData.normalJumpForce, playerData.normalJumpTime);
+                MoveCharacter(playerData.runningMaxSpeed);
+                Jump(playerData.normalJumpTime);
 
                 break;
             case PlayerData.JumpsEnum.DOUBLEJUMP:
-                Jump(playerData.doubleJumpForce, playerData.doubleJumpTime);
+                MoveCharacter(playerData.runningMaxSpeed);
+                Jump(playerData.doubleJumpTime);
 
                 break;
             case PlayerData.JumpsEnum.TRIPLEJUMP:
-                Jump(playerData.tripleJumpForce, playerData.tripleJumpTime);
+                
+                MoveCharacter(playerData.runningMaxSpeed);
+                Jump(playerData.tripleJumpTime);
                 break;  
             default:
             case PlayerData.JumpsEnum._NO_JUMP:
                 break;
+            
 
 
         }
-        MoveCharacter(playerData.runningVelocity);
 
 
     }
 
 
 
-    private void Jump(float jumpForce, float jumpTime)
-    {
-
-        yVelocity -=  playerData.gravity * Time.deltaTime;
-
-        playerData.finalVelocity.y = yVelocity;
-        jumpTimer += Time.deltaTime;
-
-        if (jumpTimer >= jumpTime)
-        {
-
-            stateMachine.ChangeState(player.onAirState);
-        }
-
-
-    }
+    
 }

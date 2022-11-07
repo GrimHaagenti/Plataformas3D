@@ -14,10 +14,17 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private PlayerData playerData;
+
     [SerializeField]
-    public Collider WallCollision;
+    private GameObject Cappy;
+    [SerializeField]
+    private GameObject cappyInstancePoint;
+
+    private GameObject cappyInstance;
 
     #region PlayerStates
+    //Interact
+    public PlayerSpringJumpState SpringJumpState { get; private set; }
 
     //GROUNDED
     public PlayerIdleState IdleState { get; private set; }
@@ -78,9 +85,14 @@ public class Player : MonoBehaviour
         blackflipState = new PlayerBackFlipState(this, StateMachine, playerData, "backflip");
         wallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, "wallslide");
         wallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "walljump");
+        SpringJumpState = new PlayerSpringJumpState(this, StateMachine, playerData, "jump");
     }
     void Start()
     {
+        playerData.wallLand = false;
+        playerData.wallStay = false;
+        playerData.wallExit = false;
+
         Controller = GetComponent<CharacterController>();
 
         CalculateJumpForces();
@@ -90,22 +102,32 @@ public class Player : MonoBehaviour
 
     }
 
+    private void ThrowCappy()
+    {
+
+    }
 
     private void CalculateJumpForces()
     {
-        playerData.normalJumpForce = playerData.normalJumpDistance / playerData.normalJumpTime;
-        playerData.doubleJumpForce = playerData.doubleJumpDistance / playerData.doubleJumpTime;
-        playerData.tripleJumpForce = playerData.tripleJumpDistance / playerData.tripleJumpTime;
-        playerData.backflipJumpForce = playerData.backflipJumpDistance / playerData.backflipJumpTime;
-        playerData.longJumpForce = playerData.longJumpDistance / playerData.longJumpTime;
-        playerData.wallJumpForce = playerData.wallJumpDistance / playerData.wallJumpTime;
+        playerData.normalJumpForce = 2*playerData.normalJumpDistance / playerData.normalJumpTime;
+        playerData.doubleJumpForce = 2*  playerData.doubleJumpDistance / playerData.doubleJumpTime;
+        playerData.tripleJumpForce =2* playerData.tripleJumpDistance / playerData.tripleJumpTime;
+        playerData.backflipJumpForce = 2*playerData.backflipJumpDistance / playerData.backflipJumpTime;
+        playerData.longJumpForce = 2*playerData.longJumpDistance / playerData.longJumpTime;
+        playerData.wallJumpForce = 2*playerData.wallJumpDistance / playerData.wallJumpTime;
+        playerData.springJumpForce = 2*playerData.springJumpDistance / playerData.springJumpTime;
     }
     // Update is called once per frame
     void Update()
     {
         StateMachine.CurrentState.LogicUpdate();
         inputAxis = InputManager._INPUT_MANAGER.GetLeftAxisValue();
+        if (InputManager._INPUT_MANAGER.GetCappyButtonPressed())
+        {
 
+            cappyInstance = Instantiate(Cappy, cappyInstancePoint.transform.position,Quaternion.identity, cappyInstancePoint.transform);
+        }
+        //Debug.Log("Applied Impulse:   " + playerData.finalVelocity);
 
         Controller.Move(playerData.finalVelocity * Time.deltaTime);
 
@@ -115,7 +137,12 @@ public class Player : MonoBehaviour
     {
         return playerData;
     }
-  
+
+
+    public void MakeSpringJump()
+    {
+        StateMachine.ChangeState(jumpState);
+    } 
     public void SetVelocity() 
     {
         //playerVelocity = playerData.finalVelocity;

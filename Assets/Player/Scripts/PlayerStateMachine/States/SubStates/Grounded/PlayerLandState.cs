@@ -27,7 +27,9 @@ public class PlayerLandState : PlayerGroundedState
     {
         base.LogicUpdate();
 
-        if(inputAxis == Vector2.zero)
+        
+
+        if (inputAxis == Vector2.zero)
         {
             stateMachine.ChangeState(player.IdleState);
         }

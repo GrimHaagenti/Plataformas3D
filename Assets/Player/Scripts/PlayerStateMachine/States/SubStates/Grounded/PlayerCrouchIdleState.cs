@@ -37,14 +37,14 @@ public class PlayerCrouchIdleState : PlayerGroundedState
         {
             stateMachine.ChangeState(player.IdleState);
         }
-        if (jumpInput) 
-        {
-            stateMachine.ChangeState(player.blackflipState);
-        }
+       
 
 
         Deacelerate();
 
-
+        if (jumpInput)
+        {
+            stateMachine.ChangeState(player.blackflipState);
+        }
     }
 }

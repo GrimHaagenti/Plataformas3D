@@ -46,7 +46,7 @@ public class PlayerMoveState : PlayerGroundedState
 
         
 
-        MoveCharacter(playerData.runningVelocity);
+        MoveCharacter(playerData.runningMaxSpeed);
         player.velocity = new Vector3(playerData.finalVelocity.x, 0, playerData.finalVelocity.z).magnitude;
 
 

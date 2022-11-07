@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerWallJumpState : PlayerJumpingState
 {
 
-    protected Vector3 forwardReversed;
+    protected Vector3 wallJumpVector;
     public PlayerWallJumpState(Player _player, PlayerStateMachine _stateMachine, PlayerData _playerData, string _animBoolName) : base(_player, _stateMachine, _playerData, _animBoolName)
     {
     }
@@ -18,10 +18,13 @@ public class PlayerWallJumpState : PlayerJumpingState
     public override void Enter()
     {
         base.Enter();
-        
+
+        playerData.finalVelocity = -player.transform.forward * playerData.wallJumpForce;
         yVelocity = playerData.wallJumpForce;
+        Debug.Log("Impulse:   " + playerData.finalVelocity);
+
     }
-     
+
     public override void Exit()
     {
         base.Exit();
@@ -31,6 +34,8 @@ public class PlayerWallJumpState : PlayerJumpingState
     {
         playerData.lastXInput = direction.x;
         playerData.lastYInput = direction.z;
+        Debug.Log("Should Applied Impulse:   " + playerData.finalVelocity);
+         
         base.LogicUpdate();
 
         if (InputManager._INPUT_MANAGER.GetJumpButtonIsReleased())
@@ -39,28 +44,10 @@ public class PlayerWallJumpState : PlayerJumpingState
         }
         //playerData.finalVelocity = -player.gameObject.transform.forward * playerData.runningVelocity ;
 
-        MoveCharacter(0);
-
-
-        yVelocity -= playerData.gravity * Time.deltaTime;
         player.velocity = new Vector3(playerData.finalVelocity.x, 0, playerData.finalVelocity.z).magnitude;
+        Jump(playerData.wallJumpTime);
 
 
-        forwardReversed.x = -player.gameObject.transform.forward.x;
-        forwardReversed.z = -player.gameObject.transform.forward.z;
-
-        forwardReversed *= playerData.wallJumpForce;
-
-        playerData.finalVelocity.x = forwardReversed.x;
-        playerData.finalVelocity.z = forwardReversed.z;
-        playerData.finalVelocity.y = yVelocity;
-
-        jumpTimer += Time.deltaTime;
-
-        if (jumpTimer >= playerData.wallJumpTime)
-        {
-
-            stateMachine.ChangeState(player.onAirState);
-        }
+        
     }
 }

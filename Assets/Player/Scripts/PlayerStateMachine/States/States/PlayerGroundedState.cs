@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PlayerGroundedState : PlayerState
 {
     protected Vector3 velocity = Vector3.zero;
@@ -32,6 +31,8 @@ public class PlayerGroundedState : PlayerState
         direction.y = -1f;
         playerData.finalVelocity.y = -1f * playerData.gravity * Time.deltaTime;
         playerData.coyoteTime = 1f;
+
+      
 
         if (Time.time - startTime > playerData.maxTimeToAdvanceJump)
         {
