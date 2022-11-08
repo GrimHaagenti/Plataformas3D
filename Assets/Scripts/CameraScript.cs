@@ -20,7 +20,7 @@ public class CameraScript : MonoBehaviour
     private Vector3 lastCameraPosition = Vector3.zero;
 
     Vector3 dir;
-
+    int LevelMaskLayer;
     private float rotationX;
     private float rotationY;
     private void Awake()
@@ -28,6 +28,7 @@ public class CameraScript : MonoBehaviour
         cam = GetComponent<Camera>(); 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        LevelMaskLayer = (1 << 6);
     }
 
     private void Update()
@@ -69,13 +70,10 @@ public class CameraScript : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Linecast(player.transform.position, finalPosition, out hit))
-        {
-            if (hit.collider.name != "Player" && hit.collider.name != "WallCollision")
-            {
 
-                finalPosition = hit.point;
-            }
+        if (Physics.Linecast(player.transform.position, finalPosition, out hit, LevelMaskLayer))
+        {
+            finalPosition = hit.point;
         }
         transform.position = finalPosition;
         lastCameraPosition = transform.position;

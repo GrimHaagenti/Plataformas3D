@@ -7,6 +7,10 @@ public class Player : MonoBehaviour
     [SerializeField] public Camera camera;
     public CharacterController Controller { get; private set; }
 
+
+    [SerializeField]
+    GameObject ragdoll;
+    public bool isDead { get; private set; }
     InputManager inputManager;
     #region STATE MACHINE
     public PlayerStateMachine StateMachine { get; private set; }
@@ -15,6 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayerData playerData;
 
+    //CAPPY
     [SerializeField]
     private GameObject Cappy;
     [SerializeField]
@@ -22,6 +27,10 @@ public class Player : MonoBehaviour
 
     private GameObject cappyInstance;
 
+    //SCORE
+    public int coinScore { get; private set; }
+
+    
     #region PlayerStates
     //Interact
     public PlayerSpringJumpState SpringJumpState { get; private set; }
@@ -70,7 +79,10 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Anim = GetComponent<Animator>();
-
+        setRigidBodyState(true);
+        setColliderState(false);
+        isDead = false;
+        coinScore = 0;
         StateMachine = new PlayerStateMachine();
         
 
@@ -102,9 +114,9 @@ public class Player : MonoBehaviour
 
     }
 
-    private void ThrowCappy()
+    public void AddCoin()
     {
-
+        coinScore++;
     }
 
     private void CalculateJumpForces()
@@ -120,19 +132,56 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StateMachine.CurrentState.LogicUpdate();
-        inputAxis = InputManager._INPUT_MANAGER.GetLeftAxisValue();
-        if (InputManager._INPUT_MANAGER.GetCappyButtonPressed())
-        {
+        if (!isDead) {
+            StateMachine.CurrentState.LogicUpdate();
+            inputAxis = InputManager._INPUT_MANAGER.GetLeftAxisValue();
+            if (InputManager._INPUT_MANAGER.GetCappyButtonPressed())
+            {
 
-            cappyInstance = Instantiate(Cappy, cappyInstancePoint.transform.position,Quaternion.identity, cappyInstancePoint.transform);
+                cappyInstance = Instantiate(Cappy, cappyInstancePoint.transform.position, Quaternion.identity, cappyInstancePoint.transform);
+            }
+            //Debug.Log("Applied Impulse:   " + playerData.finalVelocity);
+
+            Controller.Move(playerData.finalVelocity * Time.deltaTime);
         }
-        //Debug.Log("Applied Impulse:   " + playerData.finalVelocity);
-
-        Controller.Move(playerData.finalVelocity * Time.deltaTime);
-
 
     }
+    public void Kill() 
+    {
+        Anim.enabled = false;
+        Controller.enabled = false;
+        setRigidBodyState(false);
+
+        setColliderState(true);
+        isDead = true;
+    }
+
+    void setRigidBodyState(bool state)
+    {
+        Rigidbody[] rigidbodies = ragdoll.GetComponentsInChildren<Rigidbody>();
+
+        foreach(Rigidbody rigidbody in rigidbodies)
+        {
+            if (state ==false)
+            {
+                rigidbody.AddForceAtPosition(rigidbody.transform.forward * 200f,rigidbody.position);
+            }
+            rigidbody.isKinematic = state;
+            
+
+        }
+
+    }
+    void setColliderState(bool state)
+    {
+        Collider[] colliders = ragdoll.GetComponentsInChildren<Collider>();
+
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = state;
+        }
+    }
+
     public PlayerData GetPlayerData()
     {
         return playerData;

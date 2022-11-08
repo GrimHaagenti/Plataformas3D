@@ -37,6 +37,8 @@ public class InputManager : MonoBehaviour
             playerInputs.Character.Crouch.canceled += IsCrouchButtonReleased;
             playerInputs.Character.ThrowCappy.performed += CappyButtonPressed;
             playerInputs.Character.ThrowCappy.canceled += CappyButtonReleased;
+            playerInputs.Character.CameraControl.performed += GetCameraMovement;
+
 
             _INPUT_MANAGER = this;
             DontDestroyOnLoad(this);
@@ -47,12 +49,19 @@ public class InputManager : MonoBehaviour
     {
         timeSinceJumpPressed += Time.deltaTime;
         timeSinceCappyPressed += Time.deltaTime;
-         mousePosition = new Vector2(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue());
+        
+        //mousePosition = new Vector2(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue());
 
         
 
         InputSystem.Update();
     }
+    private void GetCameraMovement(InputAction.CallbackContext context) 
+    {
+        mousePosition = context.ReadValue<Vector2>();
+
+
+    } 
 
     private void CappyButtonPressed(InputAction.CallbackContext context)
     {

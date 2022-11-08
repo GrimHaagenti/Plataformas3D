@@ -62,6 +62,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CameraControl"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""5df44d79-fa20-4b97-b408-b0b28368618a"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -210,12 +219,100 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""37b2e0ad-2e3b-4c2f-a19c-eb95c9c5f892"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""db347197-a7ad-4dbd-94f0-10f27de5c6c2"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""ThrowCappy"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c961f4b-e9a8-48ef-aaa4-15f1c0c1bba8"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ThrowCappy"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""RightJoyStick"",
+                    ""id"": ""784981aa-0376-4642-b36e-448758fc45ef"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": ""ScaleVector2(x=2,y=2),InvertVector2(invertX=false,invertY=false)"",
+                    ""groups"": """",
+                    ""action"": ""CameraControl"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""4f95c7b4-c5ac-4260-8ba1-6dcb3f3bee43"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""CameraControl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""bcfbe9bb-f3cb-4664-b021-cd02b0fd2733"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""CameraControl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""87518236-156f-4167-8f2d-0dd53ab7b663"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""CameraControl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""a84ac8df-c5d1-4846-83d5-1825cfc30a81"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""CameraControl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e97257e-049b-41e7-8edf-6df12d0d51b4"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""CameraControl"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -241,6 +338,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Character_Crouch = m_Character.FindAction("Crouch", throwIfNotFound: true);
         m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
         m_Character_ThrowCappy = m_Character.FindAction("ThrowCappy", throwIfNotFound: true);
+        m_Character_CameraControl = m_Character.FindAction("CameraControl", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -304,6 +402,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_Crouch;
     private readonly InputAction m_Character_Move;
     private readonly InputAction m_Character_ThrowCappy;
+    private readonly InputAction m_Character_CameraControl;
     public struct CharacterActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -312,6 +411,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_Character_Crouch;
         public InputAction @Move => m_Wrapper.m_Character_Move;
         public InputAction @ThrowCappy => m_Wrapper.m_Character_ThrowCappy;
+        public InputAction @CameraControl => m_Wrapper.m_Character_CameraControl;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -333,6 +433,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @ThrowCappy.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnThrowCappy;
                 @ThrowCappy.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnThrowCappy;
                 @ThrowCappy.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnThrowCappy;
+                @CameraControl.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnCameraControl;
+                @CameraControl.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnCameraControl;
+                @CameraControl.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnCameraControl;
             }
             m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -349,6 +452,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @ThrowCappy.started += instance.OnThrowCappy;
                 @ThrowCappy.performed += instance.OnThrowCappy;
                 @ThrowCappy.canceled += instance.OnThrowCappy;
+                @CameraControl.started += instance.OnCameraControl;
+                @CameraControl.performed += instance.OnCameraControl;
+                @CameraControl.canceled += instance.OnCameraControl;
             }
         }
     }
@@ -377,5 +483,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnThrowCappy(InputAction.CallbackContext context);
+        void OnCameraControl(InputAction.CallbackContext context);
     }
 }
