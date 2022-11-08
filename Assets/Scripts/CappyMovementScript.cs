@@ -6,7 +6,7 @@ public class CappyMovementScript : MonoBehaviour
 {
     [SerializeField]
     Player player;
-    private float ThrowDistance = 10f;
+    private float ThrowDistance = 5f;
     [SerializeField]
     private float velocity = 2f;
 

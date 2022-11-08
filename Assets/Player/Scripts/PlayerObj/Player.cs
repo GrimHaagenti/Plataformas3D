@@ -10,7 +10,12 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     GameObject ragdoll;
+
     public bool isDead { get; private set; }
+
+    public bool isGrounded { get; private set; }
+    
+    
     InputManager inputManager;
     #region STATE MACHINE
     public PlayerStateMachine StateMachine { get; private set; }
@@ -76,9 +81,13 @@ public class Player : MonoBehaviour
     public bool Grounded { get; private set; }
     public bool Jumping { get; private set; }
 
+    int levelLayerMask = (1 << 6);
     private void Awake()
     {
         Anim = GetComponent<Animator>();
+        Controller = GetComponent<CharacterController>();
+        Anim.enabled = true;
+        Controller.enabled = true;
         setRigidBodyState(true);
         setColliderState(false);
         isDead = false;
@@ -105,7 +114,6 @@ public class Player : MonoBehaviour
         playerData.wallStay = false;
         playerData.wallExit = false;
 
-        Controller = GetComponent<CharacterController>();
 
         CalculateJumpForces();
 
@@ -132,6 +140,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RaycastHit hit;
+        if (Controller.isGrounded) { 
+            isGrounded = true;
+            Debug.Log(StateMachine.CurrentState);
+        }else
+        {
+            isGrounded = false;
+
+        }
+        Debug.DrawLine(gameObject.transform.position, gameObject.transform.position - gameObject.transform.up * 0.5f, Color.red,0.5f);
+
+
         if (!isDead) {
             StateMachine.CurrentState.LogicUpdate();
             inputAxis = InputManager._INPUT_MANAGER.GetLeftAxisValue();

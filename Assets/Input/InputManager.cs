@@ -41,7 +41,7 @@ public class InputManager : MonoBehaviour
 
 
             _INPUT_MANAGER = this;
-            DontDestroyOnLoad(this);
+            //DontDestroyOnLoad(this);
         }
     }
 

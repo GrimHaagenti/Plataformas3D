@@ -37,7 +37,7 @@ public class PlayerOnAirState : PlayerState
 
         
 
-        if (player.Controller.isGrounded)
+        if (player.isGrounded)
         {
             stateMachine.ChangeState(player.LandState);
         }

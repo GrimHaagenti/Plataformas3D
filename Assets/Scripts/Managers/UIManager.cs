@@ -15,9 +15,12 @@ public class UIManager : MonoBehaviour
     GameObject winCard;
     [SerializeField]
     GameObject loseCard;
+    [SerializeField]
+    TextMeshProUGUI respawnNumber;
 
     float currentScore;
     float maxScore;
+    public int respawnInt;
     string scoreString = "Coins: ";
     string currentCoins = "00";
     string maxCoins = "/10";
@@ -38,6 +41,7 @@ public class UIManager : MonoBehaviour
     private void LateUpdate()
     {
         text.text = scoreString + currentScore.ToString() + "/" + maxScore.ToString();
+        
         if (!player.isDead)
         {
             if (currentScore == maxScore)
@@ -47,6 +51,8 @@ public class UIManager : MonoBehaviour
         }
         else { 
                 winCard.SetActive(false);
-            loseCard.SetActive(true); }
+            loseCard.SetActive(true);
+            respawnNumber.text = respawnInt.ToString();
+        }
     }
 }

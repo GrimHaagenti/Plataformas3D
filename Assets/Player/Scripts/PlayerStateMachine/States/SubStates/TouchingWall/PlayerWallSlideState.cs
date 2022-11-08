@@ -35,7 +35,7 @@ public class PlayerWallSlideState : PlayerTouchingWallState
         {
             stateMachine.ChangeState(player.wallJumpState);
         }
-        if (player.Controller.isGrounded)
+        if (player.isGrounded)
         {
             stateMachine.ChangeState(player.LandState);
         }
