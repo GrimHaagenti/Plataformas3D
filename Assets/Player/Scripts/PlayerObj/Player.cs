@@ -140,7 +140,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit hit;
         if (Controller.isGrounded) { 
             isGrounded = true;
             Debug.Log(StateMachine.CurrentState);
@@ -157,8 +156,10 @@ public class Player : MonoBehaviour
             inputAxis = InputManager._INPUT_MANAGER.GetLeftAxisValue();
             if (InputManager._INPUT_MANAGER.GetCappyButtonPressed())
             {
-
-                cappyInstance = Instantiate(Cappy, cappyInstancePoint.transform.position, Quaternion.identity, cappyInstancePoint.transform);
+                if (cappyInstance == null)
+                {
+                    cappyInstance = Instantiate(Cappy, cappyInstancePoint.transform.position, Quaternion.identity, cappyInstancePoint.transform);
+                }
             }
             //Debug.Log("Applied Impulse:   " + playerData.finalVelocity);
 
