@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     GameObject ragdoll;
 
     public bool isDead { get; private set; }
-
+    public float timeSinceDeath { get; private set; }
     public bool isGrounded { get; private set; }
     
     
@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
         setRigidBodyState(true);
         setColliderState(false);
         isDead = false;
+        timeSinceDeath = 0;
         coinScore = 0;
         StateMachine = new PlayerStateMachine();
         
@@ -142,7 +143,6 @@ public class Player : MonoBehaviour
     {
         if (Controller.isGrounded) { 
             isGrounded = true;
-            Debug.Log(StateMachine.CurrentState);
         }else
         {
             isGrounded = false;
@@ -164,6 +164,10 @@ public class Player : MonoBehaviour
             //Debug.Log("Applied Impulse:   " + playerData.finalVelocity);
 
             Controller.Move(playerData.finalVelocity * Time.deltaTime);
+        }
+        else
+        {
+            timeSinceDeath += Time.deltaTime;
         }
 
     }

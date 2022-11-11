@@ -192,18 +192,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8a2b52b64a7f654582ce46256895ff4, type: 3}
---- !u!114 &358406200 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8314378261821752337, guid: 44e655fd7b9cabd48a25979b9248d380,
-    type: 3}
-  m_PrefabInstance: {fileID: 8314378262176422953}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2deea7ae2b744be43a48a392f3c06bbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &376598931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1235,11 +1223,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6452018384638257216, guid: 1d5fe79ca88e57048895ff27b5f544e3,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1438460574}
     - target: {fileID: 6452018384638257217, guid: 1d5fe79ca88e57048895ff27b5f544e3,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1350,16 +1333,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 6452018384638257221, guid: 1d5fe79ca88e57048895ff27b5f544e3,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 358406200}
-    - target: {fileID: 6452018384638257221, guid: 1d5fe79ca88e57048895ff27b5f544e3,
-        type: 3}
-      propertyPath: coinCollection
-      value: 
-      objectReference: {fileID: 1220705394}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d5fe79ca88e57048895ff27b5f544e3, type: 3}
 --- !u!1001 &8172556812282760294

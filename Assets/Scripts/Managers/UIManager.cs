@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class UIManager : MonoBehaviour
@@ -21,12 +22,15 @@ public class UIManager : MonoBehaviour
     float currentScore;
     float maxScore;
     public int respawnInt;
+    private float maxTimeToRespawn = 3;
     string scoreString = "Coins: ";
     string currentCoins = "00";
     string maxCoins = "/10";
 
+
     void Start()
     {
+        respawnInt = (int)maxTimeToRespawn;
         currentScore = player.coinScore;
         maxScore = coinCollection.GetComponentsInChildren<CoinScript>().Length;
 
@@ -36,7 +40,10 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         currentScore = player.coinScore;
-
+        if (respawnInt <= 0)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
     private void LateUpdate()
     {
@@ -52,6 +59,7 @@ public class UIManager : MonoBehaviour
         else { 
                 winCard.SetActive(false);
             loseCard.SetActive(true);
+            respawnInt = Mathf.CeilToInt(maxTimeToRespawn - player.timeSinceDeath);
             respawnNumber.text = respawnInt.ToString();
         }
     }
